@@ -4,15 +4,15 @@ add_subdirectory(core)
 add_subdirectory(scmversion)
 
 if(BUILD_NOGUI_FRONTEND)
-  add_subdirectory(duckstation-nogui)
+  add_subdirectory(openseason-nogui)
 endif()
 
 if(BUILD_QT_FRONTEND)
-  add_subdirectory(duckstation-qt)
+  add_subdirectory(openseason-qt)
 endif()
 
 if(BUILD_REGTEST)
-  add_subdirectory(duckstation-regtest)
+  add_subdirectory(openseason-regtest)
 endif()
 
 if(BUILD_TESTS)

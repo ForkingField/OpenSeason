@@ -228,7 +228,7 @@ bool CheatList::LoadFromPCSXRString(const std::string& str)
       end--;
     }
 
-    // DuckStation metadata
+    // OpenSeason metadata
     if (StringUtil::Strncasecmp(start, "#group=", 7) == 0)
     {
       group = start + 7;

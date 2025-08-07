@@ -2505,7 +2505,7 @@ ImFont* ImFontAtlas::AddFont(const ImFontConfig* font_cfg)
     if (new_font_cfg.DstFont == NULL)
         new_font_cfg.DstFont = Fonts.back();
 #if 0
-    // DUCKSTATION-CHANGE: We maintain the allocations ourselves. Saves copying 14MB or so.
+    // OPENSEASON-CHANGE: We maintain the allocations ourselves. Saves copying 14MB or so.
     if (!new_font_cfg.FontDataOwnedByAtlas)
     {
         new_font_cfg.FontData = IM_ALLOC(new_font_cfg.FontDataSize);

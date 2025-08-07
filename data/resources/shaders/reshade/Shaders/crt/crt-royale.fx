@@ -19,7 +19,7 @@
 //  Place, Suite 330, Boston, MA 02111-1307 USA
 
 
-//  Ported to Duckstation (ReShade specs) by Hyllian (2024).
+//  Ported to OpenSeason (ReShade specs) by Hyllian (2024).
 
 //  Set shader params for all passes here:
 

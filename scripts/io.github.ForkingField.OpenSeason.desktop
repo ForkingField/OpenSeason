@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=OpenSeason
+GenericName=PlayStation 1 Emulator
+Comment=OpenSeason on DuckStation
+Icon=io.github.ForkingField.OpenSeason
+TryExec=openseason-qt
+Exec=openseason-qt %f
+Categories=Game;Emulator;Qt;
