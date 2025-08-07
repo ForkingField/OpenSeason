@@ -31,12 +31,15 @@ AboutDialog::AboutDialog(QWidget* parent /* = nullptr */) : QDialog(parent)
   m_ui.description->setTextInteractionFlags(Qt::TextBrowserInteraction);
   m_ui.description->setOpenExternalLinks(true);
   m_ui.description->setText(QStringLiteral(R"(
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-<html><head><meta name="qrichtext" content="1" /><style type="text/css">
-p, li { white-space: pre-wrap; }
-</style></head><body style=" font-size:10pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">%1</p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="https://github.com/ForkingField/OpenSeason/raw/main/CONTRIBUTORS.md"><span style="text-decoration: underline; color:#0057ae;">%2</span></a> | <a href="https://github.com/ForkingField/OpenSeason/raw/main/LICENSE"><span style="text-decoration: underline; color:#0057ae;">%3</span></a> | <a href="https://github.com/ForkingField/OpenSeason"><span style=" text-decoration: underline; color:#0057ae;">GitHub</span></a></p></body></html>
+<html>
+<head><meta name="qrichtext" content="1" /><style type="text/css">p, li { white-space: pre-wrap; }</style></head>
+<body>
+<p>%1</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><a href="https://github.com/ForkingField/OpenSeason/raw/main/CONTRIBUTORS.md">%2</a> | <a href="https://github.com/ForkingField/OpenSeason/raw/main/LICENSE">%3</a> | <a href="https://github.com/ForkingField/OpenSeason">GitHub</a></p>
+</body></html>
 )")
                               .arg(tr("OpenSeason is an open-source simulator/emulator of the Sony "
                                       "PlayStation<span style=\"vertical-align:super;\">TM</span> console."))
