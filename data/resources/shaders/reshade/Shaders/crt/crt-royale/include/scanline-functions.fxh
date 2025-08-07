@@ -521,7 +521,7 @@ float2 get_last_scanline_uv(const float2 tex_uv, const float2 texture_size,
         fmod(frame_count + float(interlace_bff), 2.0);
     const float2 curr_texel = tex_uv * texture_size;
     //  Use under_half to fix a rounding bug right around exact texel locations.
-    //  This causes an insane bug on duckstation, so it's disabled here. (Hyllian, 2024)
+    //  This causes an insane bug on openseason, so it's disabled here. (Hyllian, 2024)
 //    const float2 prev_texel_num = floor(curr_texel - under_half.xx);
     const float2 prev_texel_num = curr_texel;
     const float wrong_field = fmod(

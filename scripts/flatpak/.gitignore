@@ -1,5 +1,5 @@
 .flatpak-builder/
 build/
 repo/
-org.duckstation.DuckStation.metainfo.xml
+io.github.ForkingField.OpenSeason.metainfo.xml
 *.flatpak

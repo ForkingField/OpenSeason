@@ -23,7 +23,7 @@
 
     Ported to ReShade by DevilSingh with some help from guest(r)
 
-    Clean up & Duckstation specific fixes & improvements by John Novak.
+    Clean up & OpenSeason specific fixes & improvements by John Novak.
     Thanks to Hyllian for the help & tips.
 
 */
