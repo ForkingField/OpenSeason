@@ -6,6 +6,8 @@ option(BUILD_QT_FRONTEND "Build the Qt frontend" ON)
 option(BUILD_REGTEST "Build regression test runner" OFF)
 option(BUILD_TESTS "Build unit tests" OFF)
 
+option(USE_LIBBACKTRACE "Enable usage of libbacktrace for stack traces" OFF)
+
 if(LINUX OR BSD)
   option(ENABLE_X11 "Support X11 window system" ON)
   option(ENABLE_WAYLAND "Support Wayland window system" ON)
