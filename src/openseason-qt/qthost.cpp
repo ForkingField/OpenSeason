@@ -561,11 +561,11 @@ bool QtHost::SetDataDirectory()
     CoTaskMemFree(documents_directory);
   }
 #elif defined(__linux__) || defined(__FreeBSD__)
-  // Use $XDG_CONFIG_HOME/openseason if it exists.
-  const char* xdg_config_home = getenv("XDG_CONFIG_HOME");
-  if (xdg_config_home && Path::IsAbsolute(xdg_config_home))
+  // Use $XDG_DATA_HOME/openseason if it exists.
+  const char* xdg_data_home = getenv("XDG_DATA_HOME");
+  if (xdg_data_home && Path::IsAbsolute(xdg_data_home))
   {
-    EmuFolders::DataRoot = Path::RealPath(Path::Combine(xdg_config_home, "openseason"));
+    EmuFolders::DataRoot = Path::RealPath(Path::Combine(xdg_data_home, "openseason"));
   }
   else
   {
