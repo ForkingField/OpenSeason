@@ -10,7 +10,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules/")
 include(OpenSeasonUtils)
 
 # Detect system attributes.
-detect_operating_system()
 detect_architecture()
 detect_page_size()
 detect_cache_line_size()
