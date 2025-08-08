@@ -834,7 +834,7 @@ void MainWindow::populateGameListContextMenu(const GameList::Entry* entry, QWidg
           continue;
 
         const s32 slot = ssi.slot;
-        const QDateTime timestamp(QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ssi.timestamp)));
+        const QDateTime timestamp(QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ssi.timestamp), QTimeZone::utc()));
         const QString timestamp_str(timestamp.toString(timestamp_format));
 
         QAction* action;
@@ -891,7 +891,7 @@ void MainWindow::populateGameListContextMenu(const GameList::Entry* entry, QWidg
 
 static QString FormatTimestampForSaveStateMenu(u64 timestamp)
 {
-  const QDateTime qtime(QDateTime::fromSecsSinceEpoch(static_cast<qint64>(timestamp)));
+  const QDateTime qtime(QDateTime::fromSecsSinceEpoch(static_cast<qint64>(timestamp), QTimeZone::utc()));
   return qtime.toString(QLocale::system().dateTimeFormat(QLocale::ShortFormat));
 }
 
@@ -1167,7 +1167,7 @@ std::optional<bool> MainWindow::promptForResumeState(const std::string& save_sta
   msgbox.setWindowModality(Qt::WindowModal);
   msgbox.setText(tr("A resume save state was found for this game, saved at:\n\n%1.\n\nDo you want to load this state, "
                     "or start from a fresh boot?")
-                   .arg(QDateTime::fromSecsSinceEpoch(sd.ModificationTime, Qt::UTC).toLocalTime().toString()));
+                   .arg(QDateTime::fromSecsSinceEpoch(sd.ModificationTime, QTimeZone::utc()).toLocalTime().toString()));
 
   QPushButton* load = msgbox.addButton(tr("Load State"), QMessageBox::AcceptRole);
   QPushButton* boot = msgbox.addButton(tr("Fresh Boot"), QMessageBox::RejectRole);
