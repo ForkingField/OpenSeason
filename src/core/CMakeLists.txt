@@ -135,7 +135,7 @@ set(NEWREC_SOURCES
 )
 
 target_precompile_headers(core PRIVATE "pch.h")
-target_include_directories(core PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/..")
+target_include_directories(core PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/.." "${CMAKE_SOURCE_DIR}/dep/include")
 target_include_directories(core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
 target_link_libraries(core PUBLIC Threads::Threads common util)
 target_link_libraries(core PRIVATE xxhash imgui rapidyaml rcheevos cpuinfo::cpuinfo ZLIB::ZLIB Zstd::Zstd)
