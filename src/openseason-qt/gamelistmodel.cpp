@@ -422,7 +422,7 @@ QVariant GameListModel::data(const QModelIndex& index, int role, const GameList:
           if (ge->release_date != 0)
           {
             return QStringLiteral("%1").arg(
-              QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ge->release_date), Qt::UTC).date().year());
+              QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ge->release_date), QTimeZone::utc()).date().year());
           }
           else
           {
@@ -497,7 +497,7 @@ QVariant GameListModel::data(const QModelIndex& index, int role, const GameList:
           return QString::fromStdString(ge->genre);
 
         case Column_Year:
-          return QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ge->release_date), Qt::UTC).date().year();
+          return QDateTime::fromSecsSinceEpoch(static_cast<qint64>(ge->release_date), QTimeZone::utc()).date().year();
 
         case Column_Players:
           return static_cast<int>(ge->max_players);
