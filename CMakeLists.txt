@@ -11,7 +11,6 @@ include(OpenSeasonUtils)
 
 # Detect system attributes.
 detect_operating_system()
-detect_compiler()
 detect_architecture()
 detect_page_size()
 detect_cache_line_size()
