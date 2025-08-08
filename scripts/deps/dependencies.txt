@@ -1,22 +1,29 @@
 ## commits and tags that patches are based on
 
-# https://github.com/discord/discord-rpc
-DISCORD_RPC=963aa9f3e5ce81a4682c6ca3d136cddda614db33
-
-# https://github.com/ianlancetaylor/libbacktrace
-LIBBACKTRACE=ad106d5fdd5d960bd33fae1c48a351af567fd075
-
-# https://github.com/KhronosGroup/SPIRV-Cross
-SPIRV_CROSS=vulkan-sdk-1.3.290.0
-
-# https://github.com/pytorch/cpuinfo
 CPUINFO=ca678952a9a8eaa6de112d154e8e104b22f9ab3f
+CPUINFO_URL=https://github.com/pytorch/cpuinfo
+CPUINFO_PATCH=true
 
-# https://github.com/sammycage/lunasvg.git
+DISCORD_RPC=963aa9f3e5ce81a4682c6ca3d136cddda614db33
+DISCORD_RPC_URL=https://github.com/discord/discord-rpc
+DISCORD_RPC_PATCH=true
+
+LIBBACKTRACE=ad106d5fdd5d960bd33fae1c48a351af567fd075
+LIBBACKTRACE_URL=https://github.com/ianlancetaylor/libbacktrace
+LIBBACKTRACE_PATCH=false
+
 LUNASVG=v2.4.1
+LUNASVG_URL=https://github.com/sammycage/lunasvg.git
+LUNASVG_PATCH=true
 
-# https://github.com/google/shaderc
 SHADERC=6d2848321250a19641800f8afb07738f3b0b7f18
+SHADERC_URL=https://github.com/google/shaderc
+SHADERC_PATCH=true
 
-# https://codeberg.org/soundtouch/soundtouch
 SOUNDTOUCH=7f35604eda445d4bb4006ca77a19a403af6838cd
+SOUNDTOUCH_URL=https://codeberg.org/soundtouch/soundtouch
+SOUNDTOUCH_PATCH=true
+
+SPIRV_CROSS=vulkan-sdk-1.3.290.0
+SPIRV_CROSS_URL=https://github.com/KhronosGroup/SPIRV-Cross
+SPIRV_CROSS_PATCH=false
