@@ -184,7 +184,7 @@ void CrashHandler::WriteDumpForCaller()
   WriteMinidumpAndCallstack(nullptr);
 }
 
-#elif !defined(__APPLE__)
+#elif defined(USE_LIBBACKTRACE) && !defined(__APPLE__)
 
 #include <backtrace.h>
 #include <cstdarg>
