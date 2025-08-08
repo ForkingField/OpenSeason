@@ -1,21 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(duckstation C CXX)
 
-# Policy settings.
-cmake_policy(SET CMP0069 NEW)
-set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
-
-if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-  message(FATAL_ERROR "DuckStation does not support in-tree builds. Please make a build directory that is not the source"
-                      "directory and generate your CMake project there using either `cmake -B build_directory` or by "
-                      "running cmake from the build directory.")
-endif()
-
-if(NOT CMAKE_BUILD_TYPE MATCHES "Debug|Devel|MinSizeRel|RelWithDebInfo|Release")
-  message(STATUS "CMAKE_BUILD_TYPE not set, defaulting to Release.")
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
-
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 message(STATUS "CMake System Name: ${CMAKE_SYSTEM_NAME}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
