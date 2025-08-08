@@ -57,10 +57,6 @@ if(LINUX)
   find_package(UDEV REQUIRED)
 endif()
 
-if(NOT WIN32 AND NOT APPLE)
-  find_package(Libbacktrace REQUIRED)
-endif()
-
 if(NOT ANDROID AND NOT WIN32)
   find_package(FFMPEG COMPONENTS avcodec avformat avutil swresample swscale)
   if(NOT FFMPEG_FOUND)

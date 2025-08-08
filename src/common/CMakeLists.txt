@@ -99,7 +99,10 @@ if(APPLE)
 endif()
 
 if(NOT WIN32 AND NOT ANDROID AND NOT APPLE)
-  target_link_libraries(common PRIVATE libbacktrace::libbacktrace)
+  if(USE_LIBBACKTRACE)
+    find_package(Libbacktrace REQUIRED)
+    target_link_libraries(common PRIVATE libbacktrace::libbacktrace)
+  endif()
 endif()
 
 if(ANDROID)
