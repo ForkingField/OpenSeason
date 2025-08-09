@@ -22,6 +22,10 @@ find_package(cpuinfo REQUIRED)
 find_package(DiscordRPC 3.4.0 REQUIRED)
 find_package(SoundTouch 2.4.0 REQUIRED)
 
+if(USE_LIBBACKTRACE AND NOT WIN32 AND NOT ANDROID AND NOT APPLE)
+  find_package(Libbacktrace REQUIRED)
+endif()
+
 if(NOT WIN32)
   find_package(CURL REQUIRED)
 endif()
