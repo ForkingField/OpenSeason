@@ -8,6 +8,7 @@
 
 #include "fmt/core.h"
 
+#include <memory>
 #include <string>
 
 class ProgressCallback

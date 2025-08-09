@@ -8,6 +8,7 @@
 #include <cmath>
 #include <cstdio>
 #include <limits>
+#include <memory>
 
 Log_SetChannel(ProgressCallback);
 
