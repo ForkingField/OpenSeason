@@ -704,7 +704,7 @@ void GPUDevice::RenderImGui()
                    static_cast<s32>(pcmd->ClipRect.w - pcmd->ClipRect.y));
       }
 
-      SetTextureSampler(0, reinterpret_cast<GPUTexture*>(pcmd->TextureId), m_linear_sampler.get());
+      SetTextureSampler(0, reinterpret_cast<GPUTexture*>(pcmd->GetTexID()), m_linear_sampler.get());
       DrawIndexed(pcmd->ElemCount, base_index + pcmd->IdxOffset, base_vertex + pcmd->VtxOffset);
     }
   }
