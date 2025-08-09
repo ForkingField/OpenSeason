@@ -210,7 +210,7 @@ private:
   std::atomic<u32> m_rpos{0};
   std::atomic<u32> m_wpos{0};
 
-  void* m_soundtouch = nullptr;
+  std::unique_ptr<soundtouch::SoundTouch> m_soundtouch;
 
   u32 m_target_buffer_size = 0;
   u32 m_stretch_reset = STRETCH_RESET_THRESHOLD;
