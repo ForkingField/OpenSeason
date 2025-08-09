@@ -73,7 +73,7 @@ if(NOT ANDROID AND NOT WIN32)
   endif()
 endif()
 if(NOT ANDROID AND NOT FFMPEG_FOUND)
-  set(FFMPEG_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/dep/ffmpeg/include")
+  set(FFMPEG_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/third_party/ffmpeg/include")
 endif()
 
 if(APPLE)

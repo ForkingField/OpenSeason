@@ -6,12 +6,12 @@ import os
 import glob
 import re
 
-#src_file = "src/openseason-qt/qttranslations.cpp"
-src_dir = os.path.join(os.path.dirname(__file__), "..", "src")
-fa_file = os.path.join(os.path.dirname(__file__), "..", "dep", "imgui", "include", "IconsFontAwesome5.h")
-pf_file = os.path.join(os.path.dirname(__file__), "..", "dep", "imgui", "include", "IconsPromptFont.h")
-emoji_file = os.path.join(os.path.dirname(__file__), "..", "dep", "imgui", "include", "IconsEmoji.h")
-dst_file = os.path.join(os.path.dirname(__file__), "..", "src", "util", "imgui_glyph_ranges.inl")
+#src_file = "source/openseason-qt/qttranslations.cpp"
+src_dir = os.path.join(os.path.dirname(__file__), "..", "source")
+fa_file = os.path.join(os.path.dirname(__file__), "..", "third_party", "imgui", "include", "IconsFontAwesome5.h")
+pf_file = os.path.join(os.path.dirname(__file__), "..", "third_party", "imgui", "include", "IconsPromptFont.h")
+emoji_file = os.path.join(os.path.dirname(__file__), "..", "third_party", "imgui", "include", "IconsEmoji.h")
+dst_file = os.path.join(os.path.dirname(__file__), "..", "source", "util", "imgui_glyph_ranges.inl")
 
 all_source_files = glob.glob(os.path.join(src_dir, "**", "*.cpp"), recursive=True) + \
     glob.glob(os.path.join(src_dir, "**", "*.h"), recursive=True) + \
