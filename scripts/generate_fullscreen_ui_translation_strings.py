@@ -7,7 +7,7 @@ import re
 START_IDENT = "// TRANSLATION-STRING-AREA-BEGIN"
 END_IDENT = "// TRANSLATION-STRING-AREA-END"
 
-src_file = os.path.join(os.path.dirname(__file__), "..", "src", "core", "fullscreen_ui.cpp")
+src_file = os.path.join(os.path.dirname(__file__), "..", "source", "core", "fullscreen_ui.cpp")
 
 with open(src_file, "r") as f:
     full_source = f.read()

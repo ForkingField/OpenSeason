@@ -166,7 +166,7 @@ set(TS_FILES
 
 add_executable(openseason-qt ${SRCS} ${QM_FILES})
 target_precompile_headers(openseason-qt PRIVATE "pch.h")
-target_include_directories(openseason-qt PRIVATE "${Qt6Gui_PRIVATE_INCLUDE_DIRS}" "${CMAKE_CURRENT_SOURCE_DIR}"  "${CMAKE_SOURCE_DIR}/dep/include")
+target_include_directories(openseason-qt PRIVATE "${Qt6Gui_PRIVATE_INCLUDE_DIRS}" "${CMAKE_CURRENT_SOURCE_DIR}"  "${CMAKE_SOURCE_DIR}/third_party/include")
 target_link_libraries(openseason-qt PRIVATE core common imgui minizip scmversion Qt6::Core Qt6::Gui Qt6::Widgets)
 
 # Our Qt builds may have exceptions on, so force them off.
