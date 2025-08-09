@@ -12,10 +12,6 @@ LIBBACKTRACE=ad106d5fdd5d960bd33fae1c48a351af567fd075
 LIBBACKTRACE_URL=https://github.com/ianlancetaylor/libbacktrace
 LIBBACKTRACE_PATCH=false
 
-LUNASVG=v2.4.1
-LUNASVG_URL=https://github.com/sammycage/lunasvg.git
-LUNASVG_PATCH=true
-
 SHADERC=6d2848321250a19641800f8afb07738f3b0b7f18
 SHADERC_URL=https://github.com/google/shaderc
 SHADERC_PATCH=true

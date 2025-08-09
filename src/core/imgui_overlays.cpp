@@ -241,12 +241,12 @@ void ImGuiManager::DrawPerformanceOverlay(float& position_y, float scale, float 
   do                                                                                                                   \
   {                                                                                                                    \
     text_size =                                                                                                        \
-      font->CalcTextSizeA(font->FontSize, std::numeric_limits<float>::max(), -1.0f, (text), nullptr, nullptr);         \
+      font->CalcTextSizeA(font->LegacySize, std::numeric_limits<float>::max(), -1.0f, (text), nullptr, nullptr);         \
     dl->AddText(                                                                                                       \
-      font, font->FontSize,                                                                                            \
+      font, font->LegacySize,                                                                                            \
       ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x + shadow_offset, position_y + shadow_offset),         \
       IM_COL32(0, 0, 0, 100), text.c_str(), text.end_ptr());                                                           \
-    dl->AddText(font, font->FontSize, ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x, position_y), color,  \
+    dl->AddText(font, font->LegacySize, ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x, position_y), color,  \
                 (text));                                                                                               \
     position_y += text_size.y + spacing;                                                                               \
   } while (0)
@@ -486,15 +486,15 @@ void ImGuiManager::DrawEnhancementsOverlay()
   const float shadow_offset = 1.0f * scale;
   const float margin = 10.0f * scale;
   ImFont* font = ImGuiManager::GetFixedFont();
-  const float position_y = ImGui::GetIO().DisplaySize.y - margin - font->FontSize;
+  const float position_y = ImGui::GetIO().DisplaySize.y - margin - font->LegacySize;
 
   ImDrawList* dl = ImGui::GetBackgroundDrawList();
-  ImVec2 text_size = font->CalcTextSizeA(font->FontSize, std::numeric_limits<float>::max(), -1.0f, text.c_str(),
+  ImVec2 text_size = font->CalcTextSizeA(font->LegacySize, std::numeric_limits<float>::max(), -1.0f, text.c_str(),
                                          text.end_ptr(), nullptr);
-  dl->AddText(font, font->FontSize,
+  dl->AddText(font, font->LegacySize,
               ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x + shadow_offset, position_y + shadow_offset),
               IM_COL32(0, 0, 0, 100), text.c_str(), text.end_ptr());
-  dl->AddText(font, font->FontSize, ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x, position_y),
+  dl->AddText(font, font->LegacySize, ImVec2(ImGui::GetIO().DisplaySize.x - margin - text_size.x, position_y),
               IM_COL32(255, 255, 255, 255), text.c_str(), text.end_ptr());
 }
 
@@ -513,9 +513,9 @@ void ImGuiManager::DrawMediaCaptureOverlay(float& position_y, float scale, float
   const time_t elapsed_time = cap->GetElapsedTime();
   const TinyString text_msg = TinyString::from_format(" {:02d}:{:02d}:{:02d}", elapsed_time / 3600,
                                                       (elapsed_time % 3600) / 60, (elapsed_time % 3600) % 60);
-  const ImVec2 icon_size = standard_font->CalcTextSizeA(standard_font->FontSize, std::numeric_limits<float>::max(),
+  const ImVec2 icon_size = standard_font->CalcTextSizeA(standard_font->LegacySize, std::numeric_limits<float>::max(),
                                                         -1.0f, ICON, nullptr, nullptr);
-  const ImVec2 text_size = standard_font->CalcTextSizeA(standard_font->FontSize, std::numeric_limits<float>::max(),
+  const ImVec2 text_size = standard_font->CalcTextSizeA(standard_font->LegacySize, std::numeric_limits<float>::max(),
                                                         -1.0f, text_msg.c_str(), text_msg.end_ptr(), nullptr);
 
   const float box_margin = 5.0f * scale;
@@ -525,13 +525,13 @@ void ImGuiManager::DrawMediaCaptureOverlay(float& position_y, float scale, float
   dl->AddRectFilled(box_pos, box_pos + box_size, IM_COL32(0, 0, 0, 64), box_margin);
 
   const ImVec2 text_start = ImVec2(box_pos.x + box_margin, box_pos.y + box_margin);
-  dl->AddText(standard_font, standard_font->FontSize,
+  dl->AddText(standard_font, standard_font->LegacySize,
               ImVec2(text_start.x + shadow_offset, text_start.y + shadow_offset), IM_COL32(0, 0, 0, 100), ICON);
-  dl->AddText(standard_font, standard_font->FontSize,
+  dl->AddText(standard_font, standard_font->LegacySize,
               ImVec2(text_start.x + icon_size.x + shadow_offset, text_start.y + shadow_offset), IM_COL32(0, 0, 0, 100),
               text_msg.c_str(), text_msg.end_ptr());
-  dl->AddText(standard_font, standard_font->FontSize, text_start, IM_COL32(255, 0, 0, 255), ICON);
-  dl->AddText(standard_font, standard_font->FontSize, ImVec2(text_start.x + icon_size.x, text_start.y),
+  dl->AddText(standard_font, standard_font->LegacySize, text_start, IM_COL32(255, 0, 0, 255), ICON);
+  dl->AddText(standard_font, standard_font->LegacySize, ImVec2(text_start.x + icon_size.x, text_start.y),
               IM_COL32(255, 255, 255, 255), text_msg.c_str(), text_msg.end_ptr());
 
   position_y += box_size.y + spacing;
@@ -559,7 +559,7 @@ void ImGuiManager::DrawFrameTimeOverlay(float& position_y, float scale, float ma
   ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f);
   if (ImGui::Begin("##frame_times", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoInputs))
   {
-    ImGui::PushFont(fixed_font);
+    ImGui::PushFont(fixed_font, fixed_font->LegacySize);
 
     auto [min, max] = GetMinMax(System::GetFrameTimeHistory());
 
@@ -585,19 +585,19 @@ void ImGuiManager::DrawFrameTimeOverlay(float& position_y, float scale, float ma
 
     TinyString text;
     text.format("{:.1f} ms", max);
-    ImVec2 text_size = fixed_font->CalcTextSizeA(fixed_font->FontSize, FLT_MAX, 0.0f, text.c_str(), text.end_ptr());
+    ImVec2 text_size = fixed_font->CalcTextSizeA(fixed_font->LegacySize, FLT_MAX, 0.0f, text.c_str(), text.end_ptr());
     win_dl->AddText(ImVec2(wpos.x + history_size.x - text_size.x - spacing + shadow_offset, wpos.y + shadow_offset),
                     IM_COL32(0, 0, 0, 100), text.c_str(), text.end_ptr());
     win_dl->AddText(ImVec2(wpos.x + history_size.x - text_size.x - spacing, wpos.y), IM_COL32(255, 255, 255, 255),
                     text.c_str(), text.end_ptr());
 
     text.format("{:.1f} ms", min);
-    text_size = fixed_font->CalcTextSizeA(fixed_font->FontSize, FLT_MAX, 0.0f, text.c_str(), text.end_ptr());
+    text_size = fixed_font->CalcTextSizeA(fixed_font->LegacySize, FLT_MAX, 0.0f, text.c_str(), text.end_ptr());
     win_dl->AddText(ImVec2(wpos.x + history_size.x - text_size.x - spacing + shadow_offset,
-                           wpos.y + history_size.y - fixed_font->FontSize + shadow_offset),
+                           wpos.y + history_size.y - fixed_font->LegacySize + shadow_offset),
                     IM_COL32(0, 0, 0, 100), text.c_str(), text.end_ptr());
     win_dl->AddText(
-      ImVec2(wpos.x + history_size.x - text_size.x - spacing, wpos.y + history_size.y - fixed_font->FontSize),
+      ImVec2(wpos.x + history_size.x - text_size.x - spacing, wpos.y + history_size.y - fixed_font->LegacySize),
       IM_COL32(255, 255, 255, 255), text.c_str(), text.end_ptr());
     ImGui::PopFont();
   }
@@ -630,7 +630,7 @@ void ImGuiManager::DrawInputsOverlay()
   }
 
   float current_x = margin;
-  float current_y = display_size.y - margin - ((static_cast<float>(num_ports) * (font->FontSize + spacing)) - spacing);
+  float current_y = display_size.y - margin - ((static_cast<float>(num_ports) * (font->LegacySize + spacing)) - spacing);
 
   const ImVec4 clip_rect(current_x, current_y, display_size.x - margin, display_size.y - margin);
 
@@ -650,11 +650,11 @@ void ImGuiManager::DrawInputsOverlay()
     float text_start_x = current_x;
     if (cinfo->icon_name)
     {
-      const ImVec2 icon_size = font->CalcTextSizeA(font->FontSize, FLT_MAX, 0.0f, cinfo->icon_name);
+      const ImVec2 icon_size = font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, cinfo->icon_name);
       const u32 icon_color = controller->GetInputOverlayIconColor();
-      dl->AddText(font, font->FontSize, ImVec2(current_x + shadow_offset, current_y + shadow_offset), shadow_color,
+      dl->AddText(font, font->LegacySize, ImVec2(current_x + shadow_offset, current_y + shadow_offset), shadow_color,
                   cinfo->icon_name, nullptr, 0.0f, &clip_rect);
-      dl->AddText(font, font->FontSize, ImVec2(current_x, current_y), icon_color, cinfo->icon_name, nullptr, 0.0f,
+      dl->AddText(font, font->LegacySize, ImVec2(current_x, current_y), icon_color, cinfo->icon_name, nullptr, 0.0f,
                   &clip_rect);
       text_start_x += icon_size.x;
       text.format(" {}", port + 1u);
@@ -698,12 +698,12 @@ void ImGuiManager::DrawInputsOverlay()
       }
     }
 
-    dl->AddText(font, font->FontSize, ImVec2(text_start_x + shadow_offset, current_y + shadow_offset), shadow_color,
+    dl->AddText(font, font->LegacySize, ImVec2(text_start_x + shadow_offset, current_y + shadow_offset), shadow_color,
                 text.c_str(), text.end_ptr(), 0.0f, &clip_rect);
-    dl->AddText(font, font->FontSize, ImVec2(text_start_x, current_y), text_color, text.c_str(), text.end_ptr(), 0.0f,
+    dl->AddText(font, font->LegacySize, ImVec2(text_start_x, current_y), text_color, text.c_str(), text.end_ptr(), 0.0f,
                 &clip_rect);
 
-    current_y += font->FontSize + spacing;
+    current_y += font->LegacySize + spacing;
   }
 }
 

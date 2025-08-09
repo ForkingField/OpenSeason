@@ -228,8 +228,6 @@ bool ImGuiManager::Initialize(float global_scale, bool show_osd_messages, Error*
   ImGuiIO& io = ImGui::GetIO();
   io.IniFilename = nullptr;
   io.BackendFlags |= ImGuiBackendFlags_HasGamepad | ImGuiBackendFlags_RendererHasVtxOffset;
-  io.BackendUsingLegacyKeyArrays = 0;
-  io.BackendUsingLegacyNavInputArray = 0;
   io.KeyRepeatDelay = 0.5f;
 #ifndef __ANDROID__
   // Android has no keyboard, nor are we using ImGui for any actual user-interactable windows.
@@ -639,7 +637,7 @@ bool ImGuiManager::AddIconFonts(float size)
     cfg.GlyphMinAdvanceX = size;
     cfg.GlyphMaxAdvanceX = size;
     cfg.FontDataOwnedByAtlas = false;
-    cfg.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_LoadColor | ImGuiFreeTypeBuilderFlags_Bitmap;
+    cfg.FontLoaderFlags = ImGuiFreeTypeBuilderFlags_LoadColor | ImGuiFreeTypeBuilderFlags_Bitmap;
 
     if (!ImGui::GetIO().Fonts->AddFontFromMemoryTTF(
           s_emoji_font_data.data(), static_cast<int>(s_emoji_font_data.size()), size * 0.9f, &cfg,
@@ -911,7 +909,7 @@ void ImGuiManager::DrawOSDMessages(Common::Timer::Value current_time)
       break;
 
     const ImVec2 pos(position_x, actual_y);
-    const ImVec2 text_size(font->CalcTextSizeA(font->FontSize, max_width, max_width, msg.text.c_str(),
+    const ImVec2 text_size(font->CalcTextSizeA(font->LegacySize, max_width, max_width, msg.text.c_str(),
                                                msg.text.c_str() + msg.text.length()));
     const ImVec2 size(text_size.x + padding * 2.0f, text_size.y + padding * 2.0f);
     const ImVec4 text_rect(pos.x + padding, pos.y + padding, pos.x + size.x - padding, pos.y + size.y - padding);
@@ -919,7 +917,7 @@ void ImGuiManager::DrawOSDMessages(Common::Timer::Value current_time)
     ImDrawList* dl = ImGui::GetForegroundDrawList();
     dl->AddRectFilled(pos, ImVec2(pos.x + size.x, pos.y + size.y), IM_COL32(0x21, 0x21, 0x21, opacity), rounding);
     dl->AddRect(pos, ImVec2(pos.x + size.x, pos.y + size.y), IM_COL32(0x48, 0x48, 0x48, opacity), rounding);
-    dl->AddText(font, font->FontSize, ImVec2(text_rect.x, text_rect.y), IM_COL32(0xff, 0xff, 0xff, opacity),
+    dl->AddText(font, font->LegacySize, ImVec2(text_rect.x, text_rect.y), IM_COL32(0xff, 0xff, 0xff, opacity),
                 msg.text.c_str(), msg.text.c_str() + msg.text.length(), max_width, &text_rect);
     position_y += size.y + spacing;
   }
