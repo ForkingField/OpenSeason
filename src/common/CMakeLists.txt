@@ -98,11 +98,8 @@ if(APPLE)
   target_link_libraries(common PRIVATE ${COCOA_LIBRARY})
 endif()
 
-if(NOT WIN32 AND NOT ANDROID AND NOT APPLE)
-  if(USE_LIBBACKTRACE)
-    find_package(Libbacktrace REQUIRED)
-    target_link_libraries(common PRIVATE libbacktrace::libbacktrace)
-  endif()
+if(Libbacktrace_FOUND)
+  target_link_libraries(${target} PRIVATE libbacktrace::libbacktrace)
 endif()
 
 if(ANDROID)
