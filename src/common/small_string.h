@@ -183,6 +183,7 @@ public:
   ALWAYS_INLINE const char& front() const { return m_buffer[0]; }
   ALWAYS_INLINE char& back() { return m_buffer[m_length - 1]; }
   ALWAYS_INLINE const char& back() const { return m_buffer[m_length - 1]; }
+  ALWAYS_INLINE void push_back(const value_type& val) { append(val); }
   ALWAYS_INLINE void push_back(value_type&& val) { append(val); }
   ALWAYS_INLINE void pop_back() { erase(-1); }
 
@@ -416,25 +417,19 @@ ALWAYS_INLINE void SmallStringBase::format(fmt::format_string<T...> fmt, T&&... 
 #pragma warning(pop)
 #endif
 
-#define MAKE_FORMATTER(type)                                                                                           \
-  template<>                                                                                                           \
-  struct fmt::formatter<type>                                                                                          \
-  {                                                                                                                    \
-    template<typename ParseContext>                                                                                    \
-    constexpr auto parse(ParseContext& ctx)                                                                            \
-    {                                                                                                                  \
-      return ctx.begin();                                                                                              \
-    }                                                                                                                  \
-                                                                                                                       \
-    template<typename FormatContext>                                                                                   \
-    auto format(const type& str, FormatContext& ctx)                                                                   \
-    {                                                                                                                  \
-      return fmt::format_to(ctx.out(), "{}", str.view());                                                              \
-    }                                                                                                                  \
-  };
+template<typename StringLike>
+struct stringlike_formatter
+{
+  template<typename ParseContext>
+  constexpr auto parse(ParseContext& ctx) { return ctx.begin(); }
 
-MAKE_FORMATTER(TinyString);
-MAKE_FORMATTER(SmallString);
-MAKE_FORMATTER(LargeString);
+  template<typename FormatContext>
+  auto format(const StringLike& str, FormatContext& ctx) const
+  {
+    return fmt::format_to(ctx.out(), "{}", str.view());
+  }
+};
 
-#undef MAKE_FORMATTER
+template<> struct fmt::formatter<TinyString>  : stringlike_formatter<TinyString> {};
+template<> struct fmt::formatter<SmallString> : stringlike_formatter<SmallString> {};
+template<> struct fmt::formatter<LargeString> : stringlike_formatter<LargeString> {};
