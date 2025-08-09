@@ -76,7 +76,7 @@ add_library(util
 target_precompile_headers(util PRIVATE "pch.h")
 target_include_directories(util PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/.."
-  "${CMAKE_SOURCE_DIR}/dep/include"
+  "${CMAKE_SOURCE_DIR}/third_party/include"
   "${SoundTouch_INCLUDE_DIRS}"
 )
 target_include_directories(util PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")

@@ -93,8 +93,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Recursively include the source tree.
 include(DuckStationDependencies)
-add_subdirectory(dep)
-add_subdirectory(src)
+add_subdirectory(third_party)
+add_subdirectory(source)
 
 # Output build summary.
 include(DuckStationBuildSummary)
