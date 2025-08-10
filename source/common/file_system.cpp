@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "file_system.h"
+
 #include "assert.h"
 #include "error.h"
 #include "log.h"
@@ -14,6 +15,7 @@
 #include <cstring>
 #include <limits>
 #include <numeric>
+#include <random>
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
@@ -1199,36 +1201,31 @@ void FileSystem::AtomicRenamedFileDeleter::discard()
   m_final_filename = {};
 }
 
-FileSystem::AtomicRenamedFile FileSystem::CreateAtomicRenamedFile(std::string filename, const char* mode,
-                                                                  Error* error /*= nullptr*/)
-{
+FileSystem::AtomicRenamedFile FileSystem::CreateAtomicRenamedFile(
+    std::string filename,
+    const char *mode,
+    Error *error /*= nullptr*/
+) {
   std::string temp_filename;
-  std::FILE* fp = nullptr;
-  if (!filename.empty())
-  {
-    // this is disgusting, but we need null termination, and std::string::data() does not guarantee it.
-    const size_t filename_length = filename.length();
-    const size_t name_buf_size = filename_length + 8;
-    std::unique_ptr<char[]> name_buf = std::make_unique<char[]>(name_buf_size);
-    std::memcpy(name_buf.get(), filename.c_str(), filename_length);
-    StringUtil::Strlcpy(name_buf.get() + filename_length, ".XXXXXX", name_buf_size);
+  std::FILE *fp = nullptr;
+  if (!filename.empty()) {
+    // Generate a time + random suffix
+    const auto now = std::chrono::steady_clock::now().time_since_epoch().count();
+    static thread_local std::mt19937 rng{std::random_device{}()};
+    std::uniform_int_distribution<> dist(100000, 999999);
+    const auto rnd = dist(rng);
 
-#ifdef _WIN32
-    _mktemp_s(name_buf.get(), name_buf_size);
-#elif defined(__linux__) || defined(__ANDROID__) || defined(__APPLE__)
-    mkstemp(name_buf.get());
-#else
-    mktemp(name_buf.get());
-#endif
+    temp_filename = filename + "." + std::to_string(now) + "." + std::to_string(rnd);
 
-    fp = OpenCFile(name_buf.get(), mode, error);
-    if (fp)
-      temp_filename.assign(name_buf.get(), name_buf_size - 1);
-    else
+    fp = FileSystem::OpenCFile(temp_filename.c_str(), mode, error);
+    if (!fp) {
       filename.clear();
+    }
   }
 
-  return AtomicRenamedFile(fp, AtomicRenamedFileDeleter(std::move(temp_filename), std::move(filename)));
+  return AtomicRenamedFile(
+      fp, AtomicRenamedFileDeleter(std::move(temp_filename), std::move(filename))
+  );
 }
 
 bool FileSystem::WriteAtomicRenamedFile(std::string filename, const void* data, size_t data_length,
