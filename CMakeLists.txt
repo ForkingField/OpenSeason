@@ -1,77 +1,33 @@
 cmake_minimum_required(VERSION 3.16)
 project(openseason C CXX)
 
-message(STATUS "CMake Version: ${CMAKE_VERSION}")
-message(STATUS "CMake System Name: ${CMAKE_SYSTEM_NAME}")
-message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
-
-# Pull in modules.
+# Pull in modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules/")
+include(GNUInstallDirs)
 include(OpenSeasonUtils)
 
-# Detect system attributes.
+# Detect system attributes
 detect_architecture()
 detect_page_size()
 detect_cache_line_size()
 
-# Build options. Depends on system attributes.
+# Build options
 include(OpenSeasonBuildOptions)
 
-# Enable PIC on Linux, otherwise the builds do not support ASLR.
-if(LINUX OR BSD)
-  include(CheckPIESupported)
-  check_pie_supported()
-  set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+if(DISABLE_EXCEPTIONS)
+  add_definitions("-DQT_NO_EXCEPTIONS")
+  add_definitions("-DST_NO_EXCEPTION_HANDLING")
+
+  if(MSVC)
+    string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    string(REPLACE "/GR"   "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    add_compile_options("/D_HAS_EXCEPTIONS=0" "/permissive-")
+  else()
+    add_compile_options("-fno-exceptions" "-fno-rtti")
+  endif()
 endif()
 
-# Set _DEBUG macro for Debug builds.
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
-
-# Release build optimizations for MSVC.
-if(MSVC)
-  add_definitions("/D_CRT_SECURE_NO_WARNINGS")
-  foreach(config CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
-    # Set warning level 3 instead of 4.
-    string(REPLACE "/W3" "/W4" ${config} "${${config}}")
-
-    # Enable intrinsic functions, disable minimal rebuild, UTF-8 source, set __cplusplus version.
-    set(${config} "${${config}} /Oi /Gm- /utf-8 /Zc:__cplusplus")
-  endforeach()
-
-  # RelWithDebInfo is set to Ob1 instead of Ob2.   
-  string(REPLACE "/Ob1" "/Ob2" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
-  string(REPLACE "/Ob1" "/Ob2" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-
-  # Disable incremental linking in RelWithDebInfo.
-  string(REPLACE "/INCREMENTAL" "/INCREMENTAL:NO" CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
-
-  # COMDAT folding/remove unused functions.
-  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /OPT:REF /OPT:ICF")
-  set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} /OPT:REF /OPT:ICF")
-endif()
-
-# Warning disables.
-if(COMPILER_CLANG OR COMPILER_CLANG_CL OR COMPILER_GCC)
-  include(CheckCXXFlag)
-  check_cxx_flag(-Wall COMPILER_SUPPORTS_WALL)
-  check_cxx_flag(-Wno-class-memaccess COMPILER_SUPPORTS_MEMACCESS)
-  check_cxx_flag(-Wno-invalid-offsetof COMPILER_SUPPORTS_OFFSETOF)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-switch")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch")
-endif()
-
-# We don't need exceptions, disable them to save a bit of code size.
-if(MSVC)
-  string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  string(REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_HAS_EXCEPTIONS=0 /DST_NO_EXCEPTION_HANDLING /permissive-")
-else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-rtti -DST_NO_EXCEPTION_HANDLING")
-endif()
-
-# Write binaries to a seperate directory.
+# Write binaries to a separate directory.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
 # Enable large file support on Linux 32-bit platforms.
@@ -95,6 +51,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(OpenSeasonDependencies)
 add_subdirectory(third_party)
 add_subdirectory(source)
-
-# Output build summary.
-include(OpenSeasonBuildSummary)
+add_subdirectory(data)

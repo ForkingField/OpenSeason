@@ -3,13 +3,7 @@ add_subdirectory(util)
 add_subdirectory(core)
 add_subdirectory(scmversion)
 
-if(BUILD_NOGUI_FRONTEND)
-  add_subdirectory(openseason-nogui)
-endif()
-
-if(BUILD_QT_FRONTEND)
-  add_subdirectory(openseason-qt)
-endif()
+add_subdirectory(openseason-qt)
 
 if(BUILD_REGTEST)
   add_subdirectory(openseason-regtest)

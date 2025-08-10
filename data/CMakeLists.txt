@@ -1,0 +1,10 @@
+install(DIRECTORY resources/
+  DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}"
+  FILES_MATCHING PATTERN "*"
+  PATTERN ".*" EXCLUDE
+)
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/resources/images/duck.png"
+  DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pixmaps"
+  RENAME "openseason.png"
+)

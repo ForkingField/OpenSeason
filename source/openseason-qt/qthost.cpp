@@ -528,14 +528,25 @@ void QtHost::SetAppRoot()
   EmuFolders::AppRoot = Path::Canonicalize(Path::GetDirectory(program_path));
 }
 
-void QtHost::SetResourcesDirectory()
-{
-#ifndef __APPLE__
-  // On Windows/Linux, these are in the binary directory.
-  EmuFolders::Resources = Path::Combine(EmuFolders::AppRoot, "resources");
-#else
-  // On macOS, this is in the bundle resources directory.
+void QtHost::SetResourcesDirectory() {
+#if defined(__APPLE__)
+  // On macOS, use the bundle's Resources directory.
   EmuFolders::Resources = Path::Canonicalize(Path::Combine(EmuFolders::AppRoot, "../Resources"));
+#elif defined(__linux__)
+  // On Linux, use FHS or a configurable path.
+  const char* env_path = std::getenv("OPENSEASON_RESOURCES_DIR");
+  if (env_path) {
+    if (Path::IsAbsolute(env_path)) {
+      EmuFolders::Resources = env_path;
+    } else {
+      EmuFolders::Resources = Path::Canonicalize(Path::Combine(EmuFolders::AppRoot, env_path));
+    }
+  } else {
+    EmuFolders::Resources = "/usr/share/openseason";
+  }
+#else
+  // On Windows or other platforms, use the binary directory.
+  EmuFolders::Resources = Path::Combine(EmuFolders::AppRoot, "resources");
 #endif
 }
 
