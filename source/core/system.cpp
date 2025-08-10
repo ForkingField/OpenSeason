@@ -344,9 +344,9 @@ static bool s_discord_presence_active = false;
 static time_t s_discord_presence_time_epoch;
 #endif
 
-static TinyString GetTimestampStringForFileName()
-{
-  return TinyString::from_format("{:%Y-%m-%d-%H-%M-%S}", fmt::localtime(std::time(nullptr)));
+static TinyString GetTimestampStringForFileName() {
+  auto now_tp = std::chrono::system_clock::now();
+  return TinyString::from_format("{:%Y-%m-%d-%H-%M-%S}", now_tp);
 }
 
 bool System::Internal::PerformEarlyHardwareChecks(Error* error)

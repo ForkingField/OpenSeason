@@ -939,10 +939,13 @@ void SaveStateSelectorUI::SelectPreviousSlot(bool open_selector)
 void SaveStateSelectorUI::InitializeListEntry(ListEntry* li, ExtendedSaveStateInfo* ssi, const std::string& path,
                                               s32 slot, bool global)
 {
-  if (global)
+  if (global) {
     li->game_details = fmt::format(TRANSLATE_FS("SaveStateSelectorUI", "{} ({})"), ssi->title, ssi->serial);
+  }
 
-  li->summary = fmt::format(TRANSLATE_FS("SaveStateSelectorUI", DATE_TIME_FORMAT), fmt::localtime(ssi->timestamp));
+  auto timestamp_tp = std::chrono::system_clock::from_time_t(ssi->timestamp);
+  li->summary = fmt::format(TRANSLATE_FS("SaveStateSelectorUI", DATE_TIME_FORMAT), timestamp_tp);
+
   li->filename = Path::GetFileName(path);
   li->slot = slot;
   li->global = global;
@@ -1189,10 +1192,12 @@ void SaveStateSelectorUI::ShowSlotOSDMessage()
   const std::string path = GetCurrentSlotPath();
   FILESYSTEM_STAT_DATA sd;
   std::string date;
-  if (!path.empty() && FileSystem::StatFile(path.c_str(), &sd))
-    date = fmt::format(TRANSLATE_FS("SaveStateSelectorUI", DATE_TIME_FORMAT), fmt::localtime(sd.ModificationTime));
-  else
+  if (!path.empty() && FileSystem::StatFile(path.c_str(), &sd)) {
+    auto timestamp_tp = std::chrono::system_clock::from_time_t(sd.ModificationTime);
+    date = fmt::format(TRANSLATE_FS("SaveStateSelectorUI", DATE_TIME_FORMAT), timestamp_tp);
+  } else {
     date = TRANSLATE_STR("SaveStateSelectorUI", "no save yet");
+  }
 
   Host::AddIconOSDMessage(
     "ShowSlotOSDMessage", ICON_EMOJI_MAGNIFIYING_GLASS_TILTED_LEFT,
