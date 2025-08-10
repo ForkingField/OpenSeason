@@ -477,18 +477,11 @@ static GameListView s_game_list_view = GameListView::Grid;
 // Utility
 //////////////////////////////////////////////////////////////////////////
 
-void FullscreenUI::TimeToPrintableString(SmallStringBase* str, time_t t)
-{
-  struct tm lt = {};
-#ifdef _MSC_VER
-  localtime_s(&lt, &t);
-#else
-  localtime_r(&t, &lt);
-#endif
-
-  char buf[256];
-  std::strftime(buf, sizeof(buf), "%c", &lt);
-  str->assign(buf);
+void FullscreenUI::TimeToPrintableString(SmallStringBase* str, time_t t) {
+  auto tp = std::chrono::system_clock::time_point{std::chrono::seconds{t}};
+  auto local_tp = std::chrono::current_zone()->to_local(tp);
+  auto formatted = fmt::format("{:%c}", local_tp);
+  str->assign(formatted.c_str());
 }
 
 void FullscreenUI::GetStandardSelectionFooterText(SmallStringBase& dest, bool back_instead_of_cancel)
@@ -1329,7 +1322,9 @@ void FullscreenUI::DrawLandingTemplate(ImVec2* menu_pos, ImVec2* menu_size)
     // draw time
     ImVec2 time_pos;
     {
-      heading_str.format(FSUI_FSTR("{:%H:%M}"), fmt::localtime(std::time(nullptr)));
+      auto now = std::chrono::system_clock::now();
+      auto local_time = std::chrono::current_zone()->to_local(now);
+      heading_str.format(FSUI_FSTR("{:%H:%M}"), local_time);
 
       const ImVec2 time_size = heading_font->CalcTextSizeA(heading_font->LegacySize, FLT_MAX, 0.0f, "00:00");
       time_pos = ImVec2(heading_size.x - LayoutScale(LAYOUT_MENU_BUTTON_X_PADDING) - time_size.x,
@@ -5084,10 +5079,14 @@ void FullscreenUI::DrawAchievementsSettingsPage()
                    false, false, ImGuiFullscreen::LAYOUT_MENU_BUTTON_HEIGHT_NO_SUMMARY);
 
       TinyString ts_string;
-      ts_string.format(
-        FSUI_FSTR("{:%Y-%m-%d %H:%M:%S}"),
-        fmt::localtime(
-          StringUtil::FromChars<u64>(bsi->GetTinyStringValue("Cheevos", "LoginTimestamp", "0")).value_or(0)));
+
+      auto timestamp_seconds = StringUtil::FromChars<u64>(
+        bsi->GetTinyStringValue("Cheevos", "LoginTimestamp", "0")).value_or(0);
+      auto timestamp = std::chrono::system_clock::time_point{std::chrono::seconds(timestamp_seconds)};
+      auto local_time = std::chrono::current_zone()->to_local(timestamp);
+
+      ts_string.format(FSUI_FSTR("{:%Y-%m-%d %H:%M:%S}"), local_time);
+
       ActiveButton(
         SmallString::from_format(fmt::runtime(FSUI_ICONSTR(ICON_FA_CLOCK, "Login token generated on {}")), ts_string),
         false, false, ImGuiFullscreen::LAYOUT_MENU_BUTTON_HEIGHT_NO_SUMMARY);
@@ -5299,7 +5298,9 @@ void FullscreenUI::DrawPauseMenu()
 
   // current time / play time
   {
-    buffer.format("{:%X}", fmt::localtime(std::time(nullptr)));
+    auto now = std::chrono::system_clock::now();
+    auto local_time = std::chrono::current_zone()->to_local(now);
+    buffer.format("{:%X}", local_time);
 
     const ImVec2 time_size(g_large_font->CalcTextSizeA(g_large_font->LegacySize, std::numeric_limits<float>::max(), -1.0f,
                                                        buffer.c_str(), buffer.end_ptr()));
@@ -5525,7 +5526,8 @@ bool FullscreenUI::InitializeSaveStateListEntryFromPath(SaveStateListEntry* li, 
     li->title = (slot > 0) ? fmt::format(FSUI_FSTR("Game Slot {0}##game_slot_{0}"), slot) : FSUI_STR("Game Quick Save");
   }
 
-  li->summary = fmt::format(FSUI_FSTR("Saved {:%c}"), fmt::localtime(ssi->timestamp));
+  auto local_time = std::chrono::current_zone()->to_local(std::chrono::system_clock::time_point{std::chrono::seconds{ssi->timestamp}});
+  li->summary = fmt::format(FSUI_FSTR("Saved {:%c}"), local_time);
   li->timestamp = ssi->timestamp;
   li->slot = slot;
   li->path = std::move(path);
