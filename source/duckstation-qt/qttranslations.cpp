@@ -80,10 +80,15 @@ void QtHost::UpdateApplicationLanguage(QWidget* dialog_parent)
     FixLanguageName(QString::fromStdString(Host::GetBaseStringSettingValue("Main", "Language", GetDefaultLanguage())));
 
   // install the base qt translation first
-#ifndef __APPLE__
+#ifdef __APPLE__
+  const QString base_dir = QStringLiteral("%1/../Resources/translations").arg(qApp->applicationDirPath());
+#elif defined(_WIN32)
   const QString base_dir = QStringLiteral("%1/translations").arg(qApp->applicationDirPath());
 #else
-  const QString base_dir = QStringLiteral("%1/../Resources/translations").arg(qApp->applicationDirPath());
+  const QString base_dir =
+    QString::fromStdString(Path::Canonicalize(Path::Combine(EmuFolders::Resources, "translations"))
+);
+
 #endif
 
   // Qt base uses underscores instead of hyphens.

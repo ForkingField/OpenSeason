@@ -1,18 +1,22 @@
-# Renderer options.
-option(ENABLE_OPENGL "Build with OpenGL renderer" ON)
-option(ENABLE_VULKAN "Build with Vulkan renderer" ON)
-option(BUILD_NOGUI_FRONTEND "Build the NoGUI frontend" OFF)
-option(BUILD_QT_FRONTEND "Build the Qt frontend" ON)
+# ENABLE_  - Opt-in features (usually off by default)
+# DISABLE_ - Opt-out safety switches (usually on by default)
+# BUILD_   - Specific targets or frontends to compile
+# USE_     - Integrate external systems or libraries
+
+# Renderer options
+option(ENABLE_OPENGL "Enable the OpenGL renderer" ON)
+option(ENABLE_VULKAN "Enable the Vulkan renderer" ON)
+
+# Dev/test utilities
 option(BUILD_REGTEST "Build regression test runner" OFF)
 option(BUILD_TESTS "Build unit tests" OFF)
 
-option(USE_LIBBACKTRACE "Enable usage of libbacktrace for stack traces" OFF)
+# Debugging and diagnostics
+option(USE_LIBBACKTRACE "Enable libbacktrace for stack traces" OFF)
+option(DISABLE_EXCEPTIONS "Disable C++ exceptions (-fno-exceptions)" OFF)
 
-if(LINUX OR BSD)
-  option(ENABLE_X11 "Support X11 window system" ON)
-  option(ENABLE_WAYLAND "Support Wayland window system" ON)
-  option(ALLOW_INSTALL "Allow installation to CMAKE_INSTALL_PREFIX" OFF)
-endif()
-if(APPLE)
-  option(SKIP_POSTPROCESS_BUNDLE "Disable bundle post-processing, including Qt additions" OFF)
+# Platform-specific windowing
+if(NOT APPLE AND NOT WIN32 AND NOT ANDROID)
+  option(ENABLE_X11 "Enable support for X11 window system" ON)
+  option(ENABLE_WAYLAND "Enable support for Wayland window system" ON)
 endif()
