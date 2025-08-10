@@ -276,7 +276,7 @@ void Log::ConsoleOutputLogCallback(void* pUserParam, const char* channelName, co
   FormatLogMessageAndPrint(channelName, functionName, level, message, s_console_output_timestamps, true, true,
                            [level](std::string_view message) {
                              const int outputFd = (level <= LOGLEVEL_WARNING) ? STDERR_FILENO : STDOUT_FILENO;
-                             write(outputFd, message.data(), message.length());
+                             (void)write(outputFd, message.data(), message.length());
                            });
 #endif
 }
