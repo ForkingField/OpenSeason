@@ -44,7 +44,7 @@
     </message>
     <message numerus="yes">
         <location filename="../../core/achievements.cpp" line="1288"/>
-        <location filename="../../core/achievements.cpp" line="2587"/>
+        <location filename="../../core/achievements.cpp" line="2593"/>
         <source>%n points</source>
         <comment>Achievement points</comment>
         <translation>
@@ -53,7 +53,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../core/achievements.cpp" line="2421"/>
+        <location filename="../../core/achievements.cpp" line="2419"/>
         <source>You have unlocked all achievements and earned {} points!</source>
         <comment>Point count</comment>
         <translation>
@@ -62,7 +62,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../core/achievements.cpp" line="2823"/>
+        <location filename="../../core/achievements.cpp" line="2829"/>
         <source>This game has %n leaderboards.</source>
         <comment>Leaderboard count</comment>
         <translation>
@@ -86,7 +86,7 @@
     <name>GameList</name>
     <message numerus="yes">
         <location filename="../gamelistmodel.cpp" line="258"/>
-        <location filename="../../core/game_list.cpp" line="1314"/>
+        <location filename="../../core/game_list.cpp" line="1315"/>
         <source>%n hours</source>
         <translation>
             <numerusform>%n hour</numerusform>
@@ -95,7 +95,7 @@
     </message>
     <message numerus="yes">
         <location filename="../gamelistmodel.cpp" line="260"/>
-        <location filename="../../core/game_list.cpp" line="1316"/>
+        <location filename="../../core/game_list.cpp" line="1317"/>
         <source>%n minutes</source>
         <translation>
             <numerusform>%n minute</numerusform>
