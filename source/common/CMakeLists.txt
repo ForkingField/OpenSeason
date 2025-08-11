@@ -101,7 +101,7 @@ if(APPLE)
   target_link_libraries(common PRIVATE ${COCOA_LIBRARY})
 endif()
 
-if(Libbacktrace_FOUND)
+if(LIBBACKTRACE_FOUND)
   target_link_libraries(${target} PRIVATE libbacktrace::libbacktrace)
 endif()
 
