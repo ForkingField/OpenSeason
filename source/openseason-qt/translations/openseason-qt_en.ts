@@ -128,7 +128,7 @@
 <context>
     <name>System</name>
     <message numerus="yes">
-        <location filename="../../core/system.cpp" line="3514"/>
+        <location filename="../../core/system.cpp" line="3450"/>
         <source>%n cheat(s) are now active.</source>
         <translation>
             <numerusform>%n cheat is now active.</numerusform>
@@ -136,7 +136,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../core/system.cpp" line="3515"/>
+        <location filename="../../core/system.cpp" line="3451"/>
         <source>%n cheat(s) are now inactive.</source>
         <translation>
             <numerusform>%n cheat is now inactive.</numerusform>
@@ -144,7 +144,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../../core/system.cpp" line="4166"/>
+        <location filename="../../core/system.cpp" line="4102"/>
         <source>%n cheat(s) are enabled. This may crash games.</source>
         <translation>
             <numerusform>%n cheat is enabled. This may crash games.</numerusform>
