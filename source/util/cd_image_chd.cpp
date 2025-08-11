@@ -8,7 +8,7 @@
 #include "common/assert.h"
 #include "common/error.h"
 #include "common/file_system.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/hash_combine.h"
 #include "common/heap_array.h"
 #include "common/log.h"

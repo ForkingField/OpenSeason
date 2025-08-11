@@ -36,7 +36,6 @@ Other features include:
  - GunCon and Justifier lightgun support (simulated with mouse).
  - NeGcon support.
  - Qt and "Big Picture" UI.
- - Automatic updates with preview and latest channels.
  - Automatic content scanning - game titles/hashes are provided by redump.org.
  - Optional automatic switching of memory cards for each game.
  - Supports loading cheats from existing lists.
@@ -49,13 +48,11 @@ Other features include:
  - Video capture with FFmpeg backends.
 
 ## System Requirements
- - A CPU faster than a potato. But it needs to be x86_64 (SSE4.1), AArch32/armv7, AArch64/ARMv8, or RISC-V/RV64.
+ - A CPU faster than a potato. But it needs to be x86_64, AArch32/armv7, AArch64/ARMv8, or RISC-V/RV64.
  - For the hardware renderers, a GPU capable of OpenGL 3.1/OpenGL ES 3.1/Direct3D 11 Feature Level 10.0 (or Vulkan 1.0) and above. So, basically anything made in the last 10 years or so.
  - SDL, XInput or DInput compatible game controller (e.g. XB360/XBOne/XBSeries).
 
 ## Downloading and running
-
-For x86 machines (most systems), you will need a CPU that supports the SSE4.1 instruction set. This includes all CPUs manufactured after 2007. If you want to use OpenSeason with a CPU that is older, [0.1.6995](https://github.com/ForkingField/OpenSeason/tree/0.1.6995) is the last version that does not require SSE4.1.
 
 ### LibCrypt protection and SBI files
 

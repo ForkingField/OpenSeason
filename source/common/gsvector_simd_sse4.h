@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: LGPL-3.0+
 //
 // Lightweight wrapper over native SIMD types for cross-platform vector code.
-// Rewritten and NEON+No-SIMD variants added for OpenSeason.
+// Rewritten and NEON+No-SIMD variants added for DuckStation.
 //
 
 #pragma once
@@ -11,11 +11,6 @@
 #include "common/types.h"
 
 #include <algorithm>
-
-#ifdef CPU_ARCH_AVX2
-#define GSVECTOR_HAS_UNSIGNED 1
-#define GSVECTOR_HAS_SRLV 1
-#endif
 
 class GSVector2;
 class GSVector2i;

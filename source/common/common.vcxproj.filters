@@ -44,11 +44,14 @@
     </ClInclude>
     <ClInclude Include="dynamic_library.h" />
     <ClInclude Include="binary_reader_writer.h" />
-    <ClInclude Include="gsvector_sse.h" />
-    <ClInclude Include="gsvector_neon.h" />
-    <ClInclude Include="gsvector.h" />
+    <ClInclude Include="gsvector_dispatch.h" />
     <ClInclude Include="gsvector_formatter.h" />
-    <ClInclude Include="gsvector_nosimd.h" />
+    <ClInclude Include="gsvector_matrix.h" />
+    <ClInclude Include="gsvector_simd_avx2.h" />
+    <ClInclude Include="gsvector_simd_neon.h" />
+    <ClInclude Include="gsvector_simd_scalar.h" />
+    <ClInclude Include="gsvector_simd_sse2.h" />
+    <ClInclude Include="gsvector_simd_sse4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="small_string.cpp" />
@@ -76,7 +79,7 @@
     </ClCompile>
     <ClCompile Include="dynamic_library.cpp" />
     <ClCompile Include="binary_reader_writer.cpp" />
-    <ClCompile Include="gsvector.cpp" />
+    <ClCompile Include="gsvector_matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="bitfield.natvis" />

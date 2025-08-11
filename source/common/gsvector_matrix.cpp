@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2019-2024 Connor McLaughlin <stenzek@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "gsvector.h"
+#include "gsvector_matrix.h"
 
 #include <cmath>
 

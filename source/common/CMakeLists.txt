@@ -19,12 +19,15 @@ add_library(common
   fifo_queue.h
   file_system.cpp
   file_system.h
-  gsvector.cpp
-  gsvector.h
+  gsvector_matrix.cpp
+  gsvector_dispatch.h
   gsvector_formatter.h
-  gsvector_neon.h
-  gsvector_nosimd.h
-  gsvector_sse.h
+  gsvector_matrix.h
+  gsvector_simd_avx2.h
+  gsvector_simd_neon.h
+  gsvector_simd_scalar.h
+  gsvector_simd_sse2.h
+  gsvector_simd_sse4.h
   intrin.h
   hash_combine.h
   heap_array.h

@@ -8,7 +8,7 @@
 #include "window_info.h"
 
 #include "common/bitfield.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/heap_array.h"
 #include "common/small_string.h"
 #include "common/types.h"

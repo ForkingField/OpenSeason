@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "common/bitutils.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 
 #include <gtest/gtest.h>
 

@@ -11,9 +11,6 @@
 #include <cmath>
 #include <cstring>
 
-#define GSVECTOR_HAS_UNSIGNED 1
-#define GSVECTOR_HAS_SRLV 1
-
 class GSVector2;
 class GSVector2i;
 class GSVector4;
@@ -2286,7 +2283,7 @@ public:
 
   ALWAYS_INLINE GSVector4 abs64() const { return *this & GSVector4::cxpr64(static_cast<u64>(0x7FFFFFFFFFFFFFFFULL)); }
 
-  ALWAYS_INLINE GSVector4 neg64() const {return *this ^ GSVector4::cxpr64(static_cast<u64>(0x8000000000000000ULL(); }
+  ALWAYS_INLINE GSVector4 neg64() const { return *this ^ GSVector4::cxpr64(static_cast<u64>(0x8000000000000000ULL)); }
 
   ALWAYS_INLINE GSVector4 sqrt64() const { return GSVector4::f64(std::sqrt(F64[0]), std::sqrt(F64[1])); }
 

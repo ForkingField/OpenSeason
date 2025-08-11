@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2019-2022 Connor McLaughlin <stenzek@gmail.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include <gtest/gtest.h>
 
 TEST(Rectangle, AdjacentRectanglesNotIntersecting)

@@ -4,7 +4,7 @@
 #include "gpu_sw_rasterizer.h"
 
 #include "common/assert.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 
 namespace GPU_SW_Rasterizer::AVX2 {
 #define USE_VECTOR 1

@@ -8,7 +8,7 @@
 
 #include "common/align.h"
 #include "common/assert.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/gsvector_formatter.h"
 #include "common/log.h"
 

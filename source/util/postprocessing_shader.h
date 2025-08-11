@@ -7,7 +7,7 @@
 
 #include "gpu_texture.h"
 
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/settings_interface.h"
 #include "common/timer.h"
 #include "common/types.h"
