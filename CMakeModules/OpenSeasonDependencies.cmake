@@ -48,16 +48,13 @@ endif()
 
 if(ENABLE_VULKAN)
   find_package(Shaderc REQUIRED)
-  find_package(spirv_cross_c_shared REQUIRED)
+  find_package(spirv_cross_c REQUIRED MODULE)
 
   if(LINUX)
     # We need to add the rpath for shaderc to the executable.
     get_target_property(SHADERC_LIBRARY Shaderc::shaderc_shared IMPORTED_LOCATION)
     get_filename_component(SHADERC_LIBRARY_DIRECTORY ${SHADERC_LIBRARY} DIRECTORY)
     list(APPEND CMAKE_BUILD_RPATH ${SHADERC_LIBRARY_DIRECTORY})
-    get_target_property(SPIRV_CROSS_LIBRARY spirv-cross-c-shared IMPORTED_LOCATION)
-    get_filename_component(SPIRV_CROSS_LIBRARY_DIRECTORY ${SPIRV_CROSS_LIBRARY} DIRECTORY)
-    list(APPEND CMAKE_BUILD_RPATH ${SPIRV_CROSS_LIBRARY_DIRECTORY})
   endif()
 endif()
 

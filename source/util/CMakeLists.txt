@@ -193,7 +193,8 @@ endif()
 if(ENABLE_VULKAN OR APPLE)
   # shaderc is loaded dynamically to reduce module loads on startup.
   get_target_property(SHADERC_INCLUDE_DIR Shaderc::shaderc_shared INTERFACE_INCLUDE_DIRECTORIES)
-  target_include_directories(util PUBLIC ${SHADERC_INCLUDE_DIR})
+
+  target_link_libraries(util PRIVATE SPIRV_CROSS_C::spirv-cross-c)
 endif()
 
 if(NOT ANDROID)
