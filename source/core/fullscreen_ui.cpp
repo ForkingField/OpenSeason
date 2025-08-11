@@ -7015,49 +7015,44 @@ void FullscreenUI::CopyTextToClipboard(std::string title, std::string_view text)
     ShowToast(std::string(), FSUI_STR("Failed to copy text to clipboard."));
 }
 
-void FullscreenUI::DrawAboutWindow()
-{
+void FullscreenUI::DrawAboutWindow() {
   ImGui::SetNextWindowSize(LayoutScale(1000.0f, 540.0f));
-  ImGui::SetNextWindowPos(ImGui::GetIO().DisplaySize * 0.5f, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+  ImGui::SetNextWindowPos(
+      ImGui::GetIO().DisplaySize * 0.5f, ImGuiCond_Always, ImVec2(0.5f, 0.5f)
+  );
   ImGui::OpenPopup(FSUI_CSTR("About OpenSeason"));
 
   ImGui::PushFont(g_large_font, g_large_font->LegacySize);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, LayoutScale(10.0f));
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, LayoutScale(30.0f, 30.0f));
 
-  if (ImGui::BeginPopupModal(FSUI_CSTR("About OpenSeason"), &s_about_window_open,
-                             ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize))
-  {
-    ImGui::TextWrapped("%s",
-                       FSUI_CSTR("OpenSeason is a free and open-source simulator/emulator of the Sony PlayStation(TM) "
-                                 "console, focusing on playability, speed, and long-term maintainability."));
+  if (ImGui::BeginPopupModal(
+          FSUI_CSTR("About OpenSeason"),
+          &s_about_window_open,
+          ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
+      )) {
+    ImGui::TextWrapped("%s %s", FSUI_CSTR("OpenSeason"), g_scm_tag_str);
     ImGui::NewLine();
-    ImGui::TextWrapped(FSUI_CSTR("Version: %s"), g_scm_tag_str);
+    ImGui::TextWrapped("... %s ...", FSUI_CSTR("on DuckStation GPL"));
     ImGui::NewLine();
-    ImGui::TextWrapped(
-      "%s", FSUI_CSTR("Duck icon by icons8 (https://icons8.com/icon/74847/platforms.undefined.short-title)"));
-    ImGui::NewLine();
-    ImGui::TextWrapped(
-      "%s", FSUI_CSTR("\"PlayStation\" and \"PSX\" are registered trademarks of Sony Interactive Entertainment Europe "
-                      "Limited. This software is not affiliated in any way with Sony Interactive Entertainment."));
-
+    ImGui::TextWrapped("%s", FSUI_CSTR("Please play responsibly."));
     ImGui::NewLine();
 
     BeginMenuButtons();
-    if (ActiveButton(FSUI_ICONSTR(ICON_FA_GLOBE, "GitHub Repository"), false))
+    if (ActiveButton(FSUI_ICONSTR(ICON_FA_GLOBE, "GitHub Repository"), false)) {
       ExitFullscreenAndOpenURL("https://github.com/ForkingField/OpenSeason/");
-    if (ActiveButton(FSUI_ICONSTR(ICON_FA_COMMENT, "Discord Server"), false))
-      ExitFullscreenAndOpenURL("https://www.openseason.org/discord.html");
-    if (ActiveButton(FSUI_ICONSTR(ICON_FA_PEOPLE_CARRY, "Contributor List"), false))
-      ExitFullscreenAndOpenURL("https://github.com/ForkingField/OpenSeason/blob/master/CONTRIBUTORS.md");
+    }
+    if (ActiveButton(FSUI_ICONSTR(ICON_FA_PEOPLE_CARRY, "Contributor List"), false)) {
+      ExitFullscreenAndOpenURL(
+          "https://github.com/ForkingField/OpenSeason/blob/master/CONTRIBUTORS.md"
+      );
+    }
 
-    if (ActiveButton(FSUI_ICONSTR(ICON_FA_WINDOW_CLOSE, "Close"), false) || WantsToCloseMenu())
-    {
+    if (ActiveButton(FSUI_ICONSTR(ICON_FA_WINDOW_CLOSE, "Close"), false) ||
+        WantsToCloseMenu()) {
       ImGui::CloseCurrentPopup();
       s_about_window_open = false;
-    }
-    else
-    {
+    } else {
       SetStandardSelectionFooterText(true);
     }
 
@@ -7373,8 +7368,6 @@ TRANSLATE_NOOP("FullscreenUI", "Downloads covers from a user-specified URL templ
 TRANSLATE_NOOP("FullscreenUI", "Downsamples the rendered image prior to displaying it. Can improve overall image quality in mixed 2D/3D games.");
 TRANSLATE_NOOP("FullscreenUI", "Downsampling");
 TRANSLATE_NOOP("FullscreenUI", "Downsampling Display Scale");
-TRANSLATE_NOOP("FullscreenUI", "Duck icon by icons8 (https://icons8.com/icon/74847/platforms.undefined.short-title)");
-TRANSLATE_NOOP("FullscreenUI", "OpenSeason is a free and open-source simulator/emulator of the Sony PlayStation(TM) console, focusing on playability, speed, and long-term maintainability.");
 TRANSLATE_NOOP("FullscreenUI", "Dump Replaceable VRAM Writes");
 TRANSLATE_NOOP("FullscreenUI", "Emulation Settings");
 TRANSLATE_NOOP("FullscreenUI", "Emulation Speed");
@@ -7556,6 +7549,7 @@ TRANSLATE_NOOP("FullscreenUI", "OSD Scale");
 TRANSLATE_NOOP("FullscreenUI", "On-Screen Display");
 TRANSLATE_NOOP("FullscreenUI", "Open Containing Directory");
 TRANSLATE_NOOP("FullscreenUI", "Open in File Browser");
+TRANSLATE_NOOP("FullscreenUI", "OpenSeason");
 TRANSLATE_NOOP("FullscreenUI", "Operations");
 TRANSLATE_NOOP("FullscreenUI", "Optimal Frame Pacing");
 TRANSLATE_NOOP("FullscreenUI", "Options");
@@ -7582,6 +7576,7 @@ TRANSLATE_NOOP("FullscreenUI", "Performance enhancement - jumps directly between
 TRANSLATE_NOOP("FullscreenUI", "Perspective Correct Colors");
 TRANSLATE_NOOP("FullscreenUI", "Perspective Correct Textures");
 TRANSLATE_NOOP("FullscreenUI", "Plays sound effects for events such as achievement unlocks and leaderboard submissions.");
+TRANSLATE_NOOP("FullscreenUI", "Please play responsibly.");
 TRANSLATE_NOOP("FullscreenUI", "Port {} Controller Type");
 TRANSLATE_NOOP("FullscreenUI", "Post-Processing Settings");
 TRANSLATE_NOOP("FullscreenUI", "Post-processing chain cleared.");
@@ -7821,8 +7816,8 @@ TRANSLATE_NOOP("FullscreenUI", "Wireframe Rendering");
 TRANSLATE_NOOP("FullscreenUI", "Writes textures which can be replaced to the dump directory.");
 TRANSLATE_NOOP("FullscreenUI", "Yes, {} now and risk memory card corruption.");
 TRANSLATE_NOOP("FullscreenUI", "\"Challenge\" mode for achievements, including leaderboard tracking. Disables save state, cheats, and slowdown functions.");
-TRANSLATE_NOOP("FullscreenUI", "\"PlayStation\" and \"PSX\" are registered trademarks of Sony Interactive Entertainment Europe Limited. This software is not affiliated in any way with Sony Interactive Entertainment.");
 TRANSLATE_NOOP("FullscreenUI", "change disc");
+TRANSLATE_NOOP("FullscreenUI", "on DuckStation GPL");
 TRANSLATE_NOOP("FullscreenUI", "reset");
 TRANSLATE_NOOP("FullscreenUI", "shut down");
 TRANSLATE_NOOP("FullscreenUI", "{:%H:%M}");
