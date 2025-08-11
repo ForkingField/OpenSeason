@@ -18,7 +18,6 @@ find_package(PNG 1.6.40 REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(Freetype 2.13.2 REQUIRED) # 2.13.3, but flatpak is still on 2.13.2.
 find_package(plutosvg REQUIRED)
-find_package(cpuinfo REQUIRED)
 find_package(DiscordRPC 3.4.0 REQUIRED)
 find_package(SoundTouch 2.4.0 REQUIRED)
 

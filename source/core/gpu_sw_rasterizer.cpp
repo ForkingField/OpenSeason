@@ -4,8 +4,6 @@
 #include "gpu_sw_rasterizer.h"
 #include "gpu.h"
 
-#include "cpuinfo.h"
-
 #include "common/log.h"
 #include "common/string_util.h"
 
@@ -78,14 +76,6 @@ void GPU_SW_Rasterizer::SelectImplementation()
 
   // Default to scalar for now, until vector is finished.
   use_isa = use_isa ? use_isa : "Scalar";
-
-#if defined(CPU_ARCH_SSE) && defined(_MSC_VER)
-  if (cpuinfo_has_x86_avx2() && (!use_isa || StringUtil::Strcasecmp(use_isa, "AVX2") == 0))
-  {
-    SELECT_ALTERNATIVE_RASTERIZER(AVX2);
-    return;
-  }
-#endif
 
   if (!use_isa || StringUtil::Strcasecmp(use_isa, "SIMD") == 0)
   {

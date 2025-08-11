@@ -62,7 +62,6 @@
 #include "IconsEmoji.h"
 #include "IconsFontAwesome5.h"
 
-#include "cpuinfo.h"
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 #include "imgui.h"
@@ -136,7 +135,6 @@ struct MemorySaveState
 };
 } // namespace
 
-static void CheckCacheLineSize();
 static void LogStartupInformation();
 
 static LayeredSettingsInterface GetControllerSettingsLayers(std::unique_lock<std::mutex>& lock);
@@ -351,18 +349,6 @@ static TinyString GetTimestampStringForFileName() {
 
 bool System::Internal::PerformEarlyHardwareChecks(Error* error)
 {
-  // This shouldn't fail... if it does, just hope for the best.
-  cpuinfo_initialize();
-
-#ifdef CPU_ARCH_X64
-  if (!cpuinfo_has_x86_sse4_1())
-  {
-    Error::SetStringFmt(error, "Your CPU does not support the SSE4.1 instruction set.\n"
-                               "A CPU from 2008 or newer is required to run DuckStation.");
-    return false;
-  }
-#endif
-
   // Check page size. If it doesn't match, it is a fatal error.
   const size_t runtime_host_page_size = PlatformMisc::GetRuntimePageSize();
   if (runtime_host_page_size == 0)
@@ -382,59 +368,11 @@ bool System::Internal::PerformEarlyHardwareChecks(Error* error)
   return true;
 }
 
-void System::CheckCacheLineSize()
-{
-  u32 max_line_size = 0;
-  if (cpuinfo_initialize())
-  {
-    const u32 num_l1is = cpuinfo_get_l1i_caches_count();
-    const u32 num_l1ds = cpuinfo_get_l1d_caches_count();
-    const u32 num_l2s = cpuinfo_get_l2_caches_count();
-    for (u32 i = 0; i < num_l1is; i++)
-    {
-      const cpuinfo_cache* cache = cpuinfo_get_l1i_cache(i);
-      if (cache)
-        max_line_size = std::max(max_line_size, cache->line_size);
-    }
-    for (u32 i = 0; i < num_l1ds; i++)
-    {
-      const cpuinfo_cache* cache = cpuinfo_get_l1d_cache(i);
-      if (cache)
-        max_line_size = std::max(max_line_size, cache->line_size);
-    }
-    for (u32 i = 0; i < num_l2s; i++)
-    {
-      const cpuinfo_cache* cache = cpuinfo_get_l2_cache(i);
-      if (cache)
-        max_line_size = std::max(max_line_size, cache->line_size);
-    }
-  }
-
-  if (max_line_size == 0)
-  {
-    ERROR_LOG("Cannot determine size of cache line. Continuing with expectation of {} byte lines.",
-              HOST_CACHE_LINE_SIZE);
-  }
-  else if (HOST_CACHE_LINE_SIZE != max_line_size)
-  {
-    // Not fatal, but does have performance implications.
-    WARNING_LOG(
-      "Cache line size mismatch. This build was compiled with {} byte lines, but the system has {} byte lines.",
-      HOST_CACHE_LINE_SIZE, max_line_size);
-  }
-}
-
 void System::LogStartupInformation()
 {
   INFO_LOG("DuckStation Version {} [{}]", g_scm_tag_str, g_scm_branch_str);
   INFO_LOG("SCM Timestamp: {}", g_scm_date_str);
   INFO_LOG("Build Timestamp: {} {}", __DATE__, __TIME__);
-  if (const cpuinfo_package* package = cpuinfo_get_package(0)) [[likely]]
-  {
-    INFO_LOG("Host CPU: {}", package->name);
-    INFO_LOG("CPU has {} logical processor(s) and {} core(s) across {} cluster(s).", package->processor_count,
-             package->core_count, package->cluster_count);
-  }
 }
 
 bool System::Internal::ProcessStartup(Error* error)
@@ -456,8 +394,6 @@ bool System::Internal::ProcessStartup(Error* error)
   }
 
   VERBOSE_LOG("Memory allocation took {} ms.", timer.GetTimeMilliseconds());
-
-  CheckCacheLineSize();
 
   return true;
 }
