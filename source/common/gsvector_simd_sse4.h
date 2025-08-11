@@ -12,11 +12,6 @@
 
 #include <algorithm>
 
-#ifdef CPU_ARCH_AVX2
-#define GSVECTOR_HAS_UNSIGNED 1
-#define GSVECTOR_HAS_SRLV 1
-#endif
-
 class GSVector2;
 class GSVector2i;
 class GSVector4;

@@ -3,7 +3,7 @@
 
 #ifdef __INTELLISENSE__
 
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "gpu.h"
 #include <algorithm>
 

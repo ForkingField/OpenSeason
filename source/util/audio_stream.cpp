@@ -7,7 +7,7 @@
 #include "common/align.h"
 #include "common/assert.h"
 #include "common/error.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/log.h"
 #include "common/settings_interface.h"
 #include "common/timer.h"

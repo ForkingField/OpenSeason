@@ -9,7 +9,7 @@
 #include "util/gpu_device.h"
 
 #include "common/dimensional_array.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 
 #include <limits>
 #include <tuple>

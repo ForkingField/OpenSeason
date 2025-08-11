@@ -15,11 +15,14 @@
     <ClInclude Include="fastjmp.h" />
     <ClInclude Include="fifo_queue.h" />
     <ClInclude Include="file_system.h" />
-    <ClInclude Include="gsvector.h" />
+    <ClInclude Include="gsvector_dispatch.h" />
     <ClInclude Include="gsvector_formatter.h" />
-    <ClInclude Include="gsvector_neon.h" />
-    <ClInclude Include="gsvector_nosimd.h" />
-    <ClInclude Include="gsvector_sse.h" />
+    <ClInclude Include="gsvector_matrix.h" />
+    <ClInclude Include="gsvector_simd_avx2.h" />
+    <ClInclude Include="gsvector_simd_neon.h" />
+    <ClInclude Include="gsvector_simd_scalar.h" />
+    <ClInclude Include="gsvector_simd_sse2.h" />
+    <ClInclude Include="gsvector_simd_sse4.h" />
     <ClInclude Include="hash_combine.h" />
     <ClInclude Include="heap_array.h" />
     <ClInclude Include="intrin.h" />
@@ -54,7 +57,7 @@
     <ClCompile Include="error.cpp" />
     <ClCompile Include="fastjmp.cpp" />
     <ClCompile Include="file_system.cpp" />
-    <ClCompile Include="gsvector.cpp" />
+    <ClCompile Include="gsvector_matrix.cpp" />
     <ClCompile Include="layered_settings_interface.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="memmap.cpp" />

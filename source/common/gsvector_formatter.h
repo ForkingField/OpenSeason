@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "gsvector.h"
+#include "gsvector_matrix.h"
 #include "small_string.h"
 
 #include "fmt/format.h"

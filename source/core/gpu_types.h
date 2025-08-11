@@ -7,7 +7,7 @@
 
 #include "common/bitfield.h"
 #include "common/bitutils.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 
 #include <array>
 

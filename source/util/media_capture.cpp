@@ -10,7 +10,7 @@
 #include "common/dynamic_library.h"
 #include "common/error.h"
 #include "common/file_system.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/log.h"
 #include "common/path.h"
 #include "common/string_util.h"

@@ -21,7 +21,7 @@
 #include "common/bitfield.h"
 #include "common/fifo_queue.h"
 #include "common/file_system.h"
-#include "common/gsvector.h"
+#include "common/gsvector_matrix.h"
 #include "common/heap_array.h"
 #include "common/log.h"
 
