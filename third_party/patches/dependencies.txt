@@ -3,7 +3,3 @@
 DISCORD_RPC=963aa9f3e5ce81a4682c6ca3d136cddda614db33
 DISCORD_RPC_URL=https://github.com/discord/discord-rpc
 DISCORD_RPC_PATCH=true
-
-SHADERC=6d2848321250a19641800f8afb07738f3b0b7f18
-SHADERC_URL=https://github.com/google/shaderc
-SHADERC_PATCH=true
