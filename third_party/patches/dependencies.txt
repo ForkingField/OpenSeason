@@ -1,5 +1,0 @@
-## commits and tags that patches are based on
-
-DISCORD_RPC=963aa9f3e5ce81a4682c6ca3d136cddda614db33
-DISCORD_RPC_URL=https://github.com/discord/discord-rpc
-DISCORD_RPC_PATCH=true

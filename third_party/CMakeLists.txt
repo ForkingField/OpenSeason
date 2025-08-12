@@ -20,6 +20,9 @@ add_subdirectory(rapidyaml EXCLUDE_FROM_ALL)
 add_subdirectory(cubeb EXCLUDE_FROM_ALL)
 add_subdirectory(kissfft EXCLUDE_FROM_ALL)
 
+add_subdirectory(rapidjson EXCLUDE_FROM_ALL)
+add_subdirectory(discord-rpc EXCLUDE_FROM_ALL)
+
 if(ENABLE_OPENGL)
   add_subdirectory(glad EXCLUDE_FROM_ALL)
 endif()
