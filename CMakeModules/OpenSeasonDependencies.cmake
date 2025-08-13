@@ -24,6 +24,10 @@ if(USE_SYSTEM_FAST_FLOAT)
   find_package(FastFloat REQUIRED)
 endif()
 
+if(USE_SYSTEM_XXHASH)
+  find_package(xxHash REQUIRED)
+endif()
+
 if(USE_LIBBACKTRACE AND NOT WIN32 AND NOT ANDROID AND NOT APPLE)
   find_package(Libbacktrace REQUIRED)
 endif()
