@@ -28,6 +28,10 @@ if(USE_LIBBACKTRACE AND NOT WIN32 AND NOT ANDROID AND NOT APPLE)
   find_package(Libbacktrace REQUIRED)
 endif()
 
+if(USE_SYSTEM_MINIZIP_NG)
+  find_package(minizip-ng REQUIRED MODULE)
+endif()
+
 if(BUILD_REGTEST OR BUILD_TESTS)
   find_package(GTest REQUIRED)
 endif()

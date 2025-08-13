@@ -5,7 +5,6 @@ else()
   add_compile_options(-w)
 endif()
 
-add_subdirectory(minizip EXCLUDE_FROM_ALL)
 add_subdirectory(lzma EXCLUDE_FROM_ALL)
 add_subdirectory(libchdr EXCLUDE_FROM_ALL)
 add_subdirectory(xxhash EXCLUDE_FROM_ALL)
@@ -24,6 +23,10 @@ if(NOT TARGET FastFloat::fast_float)
   add_subdirectory(fast_float EXCLUDE_FROM_ALL)
 endif()
 add_subdirectory(rapidyaml EXCLUDE_FROM_ALL)
+
+if(NOT TARGET MINIZIP::minizip-ng)
+  add_subdirectory(minizip EXCLUDE_FROM_ALL)
+endif()
 
 if(ENABLE_OPENGL)
   add_subdirectory(glad EXCLUDE_FROM_ALL)

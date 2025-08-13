@@ -17,6 +17,10 @@ if(WIN32)
 endif()
     
 target_include_directories(minizip PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(minizip INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(minizip INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 target_link_libraries(minizip ZLIB::ZLIB)
 
+add_library(MINIZIP::minizip-ng ALIAS minizip)
