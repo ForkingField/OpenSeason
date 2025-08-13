@@ -167,7 +167,7 @@ set(TS_FILES
 add_executable(duckstation-qt ${SRCS} ${QM_FILES})
 target_precompile_headers(duckstation-qt PRIVATE "pch.h")
 target_include_directories(duckstation-qt PRIVATE "${Qt6Gui_PRIVATE_INCLUDE_DIRS}" "${CMAKE_CURRENT_SOURCE_DIR}"  "${CMAKE_SOURCE_DIR}/third_party/include")
-target_link_libraries(duckstation-qt PRIVATE core common imgui minizip scmversion Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(duckstation-qt PRIVATE core common imgui scmversion MINIZIP::minizip-ng Qt6::Core Qt6::Gui Qt6::Widgets)
 
 install(TARGETS duckstation-qt RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
 

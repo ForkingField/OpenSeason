@@ -17,6 +17,7 @@ option(DISABLE_EXCEPTIONS "Disable C++ exceptions (-fno-exceptions)" OFF)
 
 # External libraries and integrations
 option(USE_SYSTEM_FAST_FLOAT "Use system-installed fast_float" OFF)
+option(USE_SYSTEM_MINIZIP_NG "Use system-installed minizip-ng" OFF)
 
 # Platform-specific windowing
 if(NOT APPLE AND NOT WIN32 AND NOT ANDROID)
