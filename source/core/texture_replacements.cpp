@@ -16,9 +16,6 @@
 
 #include "fmt/format.h"
 #include "xxhash.h"
-#if defined(CPU_ARCH_X86) || defined(CPU_ARCH_X64)
-#include "xxh_x86dispatch.h"
-#endif
 
 #include <cinttypes>
 #include <tuple>

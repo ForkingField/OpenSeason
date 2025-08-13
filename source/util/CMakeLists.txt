@@ -88,9 +88,9 @@ target_link_libraries(util PRIVATE
   WebP::libwebp
 
   # compression
+  xxHash::xxhash
   ZLIB::ZLIB
   Zstd::Zstd
-  xxhash
 
   # internal
   libchdr
