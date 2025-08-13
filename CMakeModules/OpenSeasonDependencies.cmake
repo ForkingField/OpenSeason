@@ -20,6 +20,10 @@ find_package(Freetype 2.13.2 REQUIRED) # 2.13.3, but flatpak is still on 2.13.2.
 find_package(plutosvg REQUIRED)
 find_package(SoundTouch 2.4.0 REQUIRED)
 
+if(USE_SYSTEM_FAST_FLOAT)
+  find_package(FastFloat REQUIRED)
+endif()
+
 if(USE_LIBBACKTRACE AND NOT WIN32 AND NOT ANDROID AND NOT APPLE)
   find_package(Libbacktrace REQUIRED)
 endif()

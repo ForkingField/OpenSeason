@@ -15,6 +15,9 @@ option(BUILD_TESTS "Build unit tests" OFF)
 option(USE_LIBBACKTRACE "Enable libbacktrace for stack traces" OFF)
 option(DISABLE_EXCEPTIONS "Disable C++ exceptions (-fno-exceptions)" OFF)
 
+# External libraries and integrations
+option(USE_SYSTEM_FAST_FLOAT "Use system-installed fast_float" OFF)
+
 # Platform-specific windowing
 if(NOT APPLE AND NOT WIN32 AND NOT ANDROID)
   option(ENABLE_X11 "Enable support for X11 window system" ON)
