@@ -15,6 +15,10 @@ if(CPU_ARCH_X86 OR CPU_ARCH_X64)
 endif()
 
 target_include_directories(xxhash PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(xxhash INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(xxhash INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 target_compile_definitions(xxhash INTERFACE "XXH_STATIC_LINKING_ONLY")
 
+add_library(xxHash::xxhash ALIAS xxhash)
