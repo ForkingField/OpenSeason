@@ -63,13 +63,14 @@ add_library(rapidyaml
 target_include_directories(rapidyaml PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/src"
-  "${CMAKE_CURRENT_SOURCE_DIR}/../fast_float/include"
 )
 target_include_directories(rapidyaml INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
+target_link_libraries(rapidyaml PUBLIC
+  FastFloat::fast_float
+)
 target_compile_definitions(rapidyaml PUBLIC
   "C4_NO_DEBUG_BREAK"
 )
-
