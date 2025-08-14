@@ -16,9 +16,19 @@ find_library(SoundTouch_LIBRARY
     NAMES SoundTouch soundtouch
 )
 
+if (SoundTouch_INCLUDE_DIR)
+    file(STRINGS "${SoundTouch_INCLUDE_DIR}/SoundTouch.h"
+        _soundtouch_version_line REGEX "#define SOUNDTOUCH_VERSION *\"[0-9.]+\""
+    )
+    string(REGEX REPLACE ".*\"([0-9.]+)\".*" "\\1"
+        SoundTouch_VERSION "${_soundtouch_version_line}"
+    )
+endif()
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(SoundTouch
     REQUIRED_VARS SoundTouch_LIBRARY SoundTouch_INCLUDE_DIR
+    VERSION_VAR SoundTouch_VERSION
 )
 
 if(SoundTouch_FOUND)
